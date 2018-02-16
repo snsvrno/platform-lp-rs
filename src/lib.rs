@@ -10,6 +10,14 @@ pub const NIX32 : &str = "Linux x32";
 pub const MAC64 : &str = "Mac OS x86_64";
 pub const MAC32 : &str = "Mac OS 32";
 
+// the str constant values
+pub const S_WIN64 : &str = "win64";
+pub const S_WIN32 : &str = "win32";
+pub const S_NIX64 : &str = "nix64";
+pub const S_NIX32 : &str = "nix32";
+pub const S_MAC64 : &str = "mac64";
+pub const S_MAC32 : &str = "mac32";
+
 #[derive(Debug,PartialEq)]
 pub enum Platform {
   Win64,
@@ -62,6 +70,26 @@ impl Platform {
       Platform::Mac64 => { MAC64 },
       Platform::Mac32 => { MAC32 },
       Platform::None => { "You are not running an OS." }
+    }
+  }
+
+  pub fn to_short_string(&self) -> String { 
+    //! returns a String object with the short &str value of the platform
+
+    self.as_short_str().to_string() 
+  }
+
+  pub fn as_short_str(&self) -> &'static str {
+    //! returns the short &str constant value
+
+    match *self {
+      Platform::Win64 => { S_WIN64 },
+      Platform::Win32 => { S_WIN32 },
+      Platform::Nix64 => { S_NIX64 },
+      Platform::Nix32 => { S_NIX32 },
+      Platform::Mac64 => { S_MAC64 },
+      Platform::Mac32 => { S_MAC32 },
+      Platform::None => { "no_os" }
     }
   }
 
