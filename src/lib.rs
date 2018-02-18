@@ -18,7 +18,7 @@ pub const S_NIX32 : &str = "nix32";
 pub const S_MAC64 : &str = "mac64";
 pub const S_MAC32 : &str = "mac32";
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,PartialEq,Hash,Eq)]
 pub enum Platform {
   Win64,
   Win32,
