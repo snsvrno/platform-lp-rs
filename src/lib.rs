@@ -1,4 +1,6 @@
 //! Platform structure for use with `lovepack` 
+#[macro_use]
+extern crate serde_derive;
 
 use std::slice::Iter;
 
@@ -18,7 +20,7 @@ pub const S_NIX32 : &str = "nix32";
 pub const S_MAC64 : &str = "mac64";
 pub const S_MAC32 : &str = "mac32";
 
-#[derive(Debug,PartialEq,Hash,Eq)]
+#[derive(Debug,PartialEq,Hash,Eq,Serialize,Deserialize)]
 pub enum Platform {
   Win64,
   Win32,
