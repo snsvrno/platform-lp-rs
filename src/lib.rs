@@ -46,6 +46,7 @@ impl <'de>serde::de::Visitor<'de> for PlatformVisitor {
   fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
     formatter.write_str("platform")
   }
+  
   fn visit_str<A>(self, string:&str) -> Result<Self::Value, A> {
     Ok(Platform::new(string))
   }
