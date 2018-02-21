@@ -46,11 +46,8 @@ impl <'de>serde::de::Visitor<'de> for PlatformVisitor {
   fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
     formatter.write_str("platform")
   }
-
-  fn visit_enum<A>(self, data:A) -> Result<Self::Value, A::Error> where A: serde::de::EnumAccess<'de> {
-    if let Ok((variant,_)) = data.variant() {
-      Ok(Platform::new(variant))
-    } else { Ok(Platform::None) }
+  fn visit_str<A>(self, string:&str) -> Result<Self::Value, A> {
+    Ok(Platform::new(string))
   }
 }
 
@@ -279,12 +276,10 @@ impl serde::Serialize for Platform {
   }
 }
 
+// I THINK THIS IS MY ISSUE
 impl <'de> serde::Deserialize<'de> for Platform {
   fn deserialize<D>(deserializer : D) -> Result<Platform, D::Error> where D : serde::Deserializer<'de> {
-    deserializer.deserialize_enum("Platform",
-      &["Windows x32","Linux x86_64","Linux x32","Mac OS x86_64","Mac OS x32","None"],
-      PlatformVisitor::new()
-    )
+    deserializer.deserialize_str(PlatformVisitor::new())
   }
 }
 
@@ -323,7 +318,7 @@ mod tests {
       use serde_test::{Token, assert_tokens};
   
       let platform = super::Platform::new("linux 64)");
-      assert_tokens(&platform,&[Token::Str("Linux x86_64")]);
+      assert_tokens(&platform,&[Token::Str(super::S_NIX64)]);
 
     }
 }
