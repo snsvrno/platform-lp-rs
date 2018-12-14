@@ -1,20 +1,21 @@
-use platform_lp as platform;
+extern crate serde_test;
+extern crate platform_lp as platform; use platform::Platform;
 
 #[test]
 fn new() {
     //! checks string parser works to get the correct platform
 
-    assert_eq!(super::Platform::new("linux64"),super::Platform::Nix64);
-    assert_eq!(super::Platform::new("w32"),super::Platform::Win32);
-    assert_eq!(super::Platform::new("linux i686"),super::Platform::Nix32);
-    assert_eq!(super::Platform::new("aPpLe 64 bit"),super::Platform::Mac64);
+    assert_eq!(Platform::new("linux64"),Platform::Nix64);
+    assert_eq!(Platform::new("w32"),Platform::Win32);
+    assert_eq!(Platform::new("linux i686"),Platform::Nix32);
+    assert_eq!(Platform::new("aPpLe 64 bit"),Platform::Mac64);
 }
 
 #[test]
 fn clone() {
     //! makes sure clone works, check the address of the objects to make sure they are different.
 
-    let plat1 = super::Platform::new("linux64");
+    let plat1 = Platform::new("linux64");
     let plat2 = plat1.clone();
     let plat3 = &plat1;
 
@@ -31,7 +32,8 @@ fn clone() {
 fn serde() {
     use serde_test::{Token, assert_tokens};
 
-    let platform = super::Platform::new("linux 64)");
-    assert_tokens(&platform,&[Token::Str(super::S_NIX64)]);
+    let platform = Platform::new("linux 64)");
+    let token = platform.as_short_str();
+    assert_tokens(&platform,&[Token::Str(token)]);
 
 }
