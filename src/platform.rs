@@ -260,3 +260,9 @@ impl Platform {
         PLATFORMS.into_iter()
     }
 }
+
+impl std::fmt::Display for Platform {
+    fn fmt(&self, f : &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f,"{}",self.to_string())
+    }
+}

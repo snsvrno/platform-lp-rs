@@ -33,3 +33,8 @@ if package_platform.is_compatible(user_plat) {
 }
 
 ```
+## Changes
+
+### 0.2.1
+
+- Platform now implements `std::fmt::Display`

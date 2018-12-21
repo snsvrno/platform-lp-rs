@@ -37,3 +37,9 @@ fn serde() {
     assert_tokens(&platform,&[Token::Str(token)]);
 
 }
+
+#[test]
+fn trait_display() {
+    let platform = Platform::new("linux 64)");
+    println!("{}",platform);
+}
