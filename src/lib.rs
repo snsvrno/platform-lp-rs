@@ -15,14 +15,35 @@
 //! - MacOS64
 //! - MacOS32
 //! 
+//! And has Partials to allow for matching only the OS and Architecture
+//! - Windows
+//! - Linux
+//! - Mac
+//! - X32
+//! - X64
+//! 
 //! ## Example
 //! ```rust
-//! let the_platform = platform_lp::Platform::get_user_platform();
+//! use platform_lp::{ PartialPlatform, Platform, Architecture};
+//! 
+//! let the_platform = Platform::get_user_platform();
+//! 
+//! # let the_platform = Platform::Win64;
+//! 
+//! assert!(the_platform == PartialPlatform::Windows);
+//! assert!(the_platform == Architecture::X64);
+//! 
 //! ```
 
 extern crate serde;
 
 mod platform; 
 pub use platform::Platform;
+
+mod partialplatform;
+pub use partialplatform::PartialPlatform;
+
+mod architecture;
+pub use architecture::Architecture;
 
 mod serialization;

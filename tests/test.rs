@@ -1,5 +1,5 @@
 extern crate serde_test;
-extern crate platform_lp as platform; use platform::Platform;
+extern crate platform_lp as platform; use platform::{PartialPlatform,Architecture,Platform};
 
 #[test]
 fn new() {
@@ -42,4 +42,14 @@ fn serde() {
 fn trait_display() {
     let platform = Platform::new("linux 64)");
     println!("{}",platform);
+}
+
+#[test]
+fn partials() {
+    let platform = Platform::new("linux 64)");
+
+    assert!(platform == PartialPlatform::Linux);
+    assert!(platform != PartialPlatform::Windows);
+    assert!(platform != Architecture::X32);
+    assert!(platform == Architecture::X64);
 }

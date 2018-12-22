@@ -1,5 +1,8 @@
 use std::slice::Iter;
 
+use PartialPlatform;
+use Architecture;
+
 // the str constant values
 const WIN64 : &str = "Windows x86_64";
 const WIN32 : &str = "Windows x32";
@@ -17,6 +20,8 @@ const S_NIX32 : &str = "nix32";
 const S_MAC64 : &str = "mac64";
 const S_MAC32 : &str = "mac32";
 
+/// Platform struct, designed to completely describe the current platform
+/// or other possible platforms.
 #[derive(Debug,PartialEq,Hash,Eq)]
 pub enum Platform {
     Win64,
@@ -264,5 +269,17 @@ impl Platform {
 impl std::fmt::Display for Platform {
     fn fmt(&self, f : &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f,"{}",self.to_string())
+    }
+}
+
+impl PartialEq<PartialPlatform> for Platform {
+    fn eq(&self, other: &PartialPlatform) -> bool {
+        other == self
+    }
+}
+
+impl PartialEq<Architecture> for Platform {
+    fn eq(&self, other: &Architecture) -> bool {
+        other == self
     }
 }
